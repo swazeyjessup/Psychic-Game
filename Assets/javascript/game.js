@@ -5,13 +5,16 @@ var alphabet = ["a", "b", "c", "d", "e", "f", "g",
 
 var wins = 0;
 var losses =0;
-var left = 9;
-var guesses = 9;
+var left = 10;
 var guessesSoFar = [];
-var psychicLetter;
+var guesses = "";
+var psychicLetter = "";
 
+
+// Randomly chosses a letter from the alphabet array.  This is the psychic's letter
 var newLetter = function() {
     psychicLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+    console.log(psychicLetter);
 };
 
 var soFar = function() {
@@ -24,11 +27,10 @@ var guessesLeft = function() {
 };
 
 var newGame = function(){
-    guessedLetters = [];
-    left = 9;
+    left = 10;
+    guessesSoFar = [];
     newLetter();
-    guessesLeft();
-    soFar();
+  
 };
 
 document.onkeyup = function(event) {
@@ -41,11 +43,23 @@ document.onkeyup = function(event) {
         if (userGuess == psychicLetter){
             wins++;
             document.getElementById("wins").innerHTML = "Wins:" + wins;
-            newGame();
+            alertWin();
+            
         }
     }else if (left == 0){
         losses++;
         document.getElementById("losses").innerHTML = "losses:" + losses;
-        newGame();
+        alertLoss();
+       
     }
+};
+
+var alertWin = function() {
+    alert("Congratulations I was thinking of " + psychicLetter + ".");
+    newGame ();
+};
+
+var alertLoss = function(){
+    alert("I'm sorry you have lost, I was thinking of " + psychicLetter + ".");
+    newGame ();
 };
